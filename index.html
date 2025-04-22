@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa - Магазин премиальной техники</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+        
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .logo span {
+            color: #06c;
+        }
+        
+        .cart-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-count {
+            background-color: #06c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        
+        nav {
+            background-color: #333;
+            padding: 15px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #06c;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1200x400');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #06c;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #004a99;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .product-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #06c;
+            margin-bottom: 15px;
+        }
+        
+        .product-btn {
+            display: block;
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-btn:hover {
+            background-color: #333;
+        }
+        
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #ccc;
+        }
+        
+        /* Модальное окно корзины */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .cart-items {
+            margin: 20px 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            margin: 20px 0;
+        }
+        
+        .order-form {
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .submit-btn {
+            background-color: #06c;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #004a99;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Nexa</div>
+        <p>Магазин премиальной техники</p>
+        <div class="cart-icon" id="cartIcon">
+            Корзина <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Смартфоны</a></li>
+            <li><a href="#">Ноутбуки</a></li>
+            <li><a href="#">Аксессуары</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <h1>Новейшие флагманские смартфоны 2024</h1>
+        <p>Оригинальная продукция Apple и Samsung с гарантией и доставкой по всей России</p>
+        <a href="#products" class="btn">Смотреть каталог</a>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title" id="products">Наши топовые товары</h2>
+        
+        <div class="products">
+            <!-- Товар 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\linad\Documents\Apple iPhone 16 Pro Max 1 ТБ (чёрный).jpg" alt="Apple iPhone 16 Pro Max">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Apple iPhone 16 Pro Max 1 ТБ, «титановый чёрный»</h3>
+                    <div class="product-price">250 000 ₽</div>
+                    <button class="product-btn" onclick="addToCart('Apple iPhone 16 Pro Max 1 ТБ, «титановый чёрный»', 250000, 'Apple iPhone 16 Pro Max 1 ТБ (чёрный).jpg')">Купить</button>
+                </div>
+            </div>
+            
+            <!-- Товар 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\linad\Documents\Белый.jpg" alt="Apple iPhone 16 Pro Max">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Apple iPhone 16 Pro Max 1 ТБ, «титановый белый»</h3>
+                    <div class="product-price">250 000 ₽</div>
+                    <button class="product-btn" onclick="addToCart('Apple iPhone 16 Pro Max 1 ТБ, «титановый белый»', 250000, 'Белый.jpg')">Купить</button>
+                </div>
+            </div>
+            
+            <!-- Товар 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\linad\Documents\Samsung Galaxy S25 12 128 ГБ.jpg.webp" alt="Samsung Galaxy S25 Ultra">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Samsung Galaxy S25 Ultra 12 ГБ/512 ГБ, Синий титан</h3>
+                    <div class="product-price">170 000 ₽</div>
+                    <button class="product-btn" onclick="addToCart('Samsung Galaxy S25 Ultra 12 ГБ/512 ГБ, Синий титан', 170000, 'SamsungGalaxy S25.png')">Купить</button>
+                </div>
+            </div>
+            
+            <!-- Товар 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\linad\Documents\SamsungGalaxy S25.png" alt="Samsung Galaxy S25">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Samsung Galaxy S25 12 ГБ/128 ГБ, Голубой</h3>
+                    <div class="product-price">120 000 ₽</div>
+                    <button class="product-btn" onclick="addToCart('Samsung Galaxy S25 12 ГБ/128 ГБ, Голубой', 120000, 'Samsung Galaxy S25 12 128 ГБ.jpg.webp')">Купить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно корзины -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ваша корзина</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Товары будут добавляться сюда -->
+            </div>
+            <div class="cart-total">
+                Итого: <span id="cartTotal">0</span> ₽
+            </div>
+            
+            <div class="order-form">
+                <h3>Оформление заказа</h3>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="fullName">ФИО:</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" required placeholder="+7(XXX)XXX-XX-XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О магазине</h3>
+                <ul>
+                    <li><a href="#">О компании</a></li>
+                    <li><a href="#">Наши магазины</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Отзывы</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Помощь покупателю</h3>
+                <ul>
+                    <li><a href="#">Доставка и оплата</a></li>
+                    <li><a href="#">Гарантия</a></li>
+                    <li><a href="#">Возврат и обмен</a></li>
+                    <li><a href="#">Частые вопросы</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7(938)000-00-00</li>
+                    <li>Email: zotovaa906@gmail.com</li>
+                    <li>Адрес: г. Ростов-на-Дону</li>
+                    <li>Режим работы: 10:00 - 22:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2024 Nexa. Все права защищены.
+        </div>
+    </footer>
+
+    <script>
+        // Корзина
+        let cart = [];
+        
+        // Элементы DOM
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeBtn = document.querySelector('.close');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const orderForm = document.getElementById('orderForm');
+        
+        // Открыть модальное окно корзины
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+            updateCartDisplay();
+        });
+        
+        // Закрыть модальное окно
+        closeBtn.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+        
+        // Закрыть при клике вне окна
+        window.addEventListener('click', (event) => {
+            if (event.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+        
+        // Добавить товар в корзину
+        function addToCart(name, price, image) {
+            // Проверяем, есть ли уже такой товар в корзине
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            
+            // Обновляем счетчик корзины
+            updateCartCount();
+            
+            // Показываем уведомление
+            alert('Товар добавлен в корзину!');
+        }
+        
+        // Обновить счетчик товаров в корзине
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Обновить отображение корзины
+        function updateCartDisplay() {
+            // Очищаем содержимое корзины
+            cartItems.innerHTML = '';
+            
+            // Если корзина пуста
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Ваша корзина пуста</p>';
+                cartTotal.textContent = '0';
+                return;
+            }
+            
+            // Добавляем каждый товар в корзину
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div style="display: flex; align-items: center;">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div style="margin-left: 10px;">
+                            <div><strong>${item.name}</strong></div>
+                            <div>${item.price.toLocaleString()} ₽ × ${item.quantity}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>${itemTotal.toLocaleString()} ₽</strong>
+                    </div>
+                `;
+                
+                cartItems.appendChild(itemElement);
+            });
+            
+            // Обновляем итоговую сумму
+            cartTotal.textContent = total.toLocaleString();
+        }
+        
+        // Обработка оформления заказа
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            
+            if (cart.length === 0) {
+                alert('Ваша корзина пуста!');
+                return;
+            }
+            
+            // Здесь можно добавить отправку данных на сервер
+            alert(`Заказ оформлен!\n\nФИО: ${fullName}\nТелефон: ${phone}\nEmail: ${email}\n\nСумма заказа: ${cartTotal.textContent} ₽`);
+            
+            // Очищаем корзину
+            cart = [];
+            updateCartCount();
+            updateCartDisplay();
+            cartModal.style.display = 'none';
+            orderForm.reset();
+        });
+    </script>
+</body>
+</html>
